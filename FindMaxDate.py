@@ -3,9 +3,11 @@ import arcpy
 
 
 def find_max_date(table, field):
+    var newestdate = ''
     with arcpy.da.SearchCursor(feature_class, Field) as cursor:
         for row in cursor:
-            row[0]
+            date = row[0]
+            print(date)
 
 
 
