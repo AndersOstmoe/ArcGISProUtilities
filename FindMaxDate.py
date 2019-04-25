@@ -1,15 +1,22 @@
 # -*- coding: UTF-8 -*-
-import arcpy
+import arcpy, datetime
 
 
-def find_max_date(table, field):
-    var newestdate = ''
-    with arcpy.da.SearchCursor(feature_class, Field) as cursor:
+def find_newest_date(table, field):
+    newestdate = datetime.datetime(2017, 1, 1)
+    with arcpy.da.SearchCursor(table, field) as cursor:
         for row in cursor:
             date = row[0]
+            if (date > newestdate):
+                newestdate = date
             print(date)
 
+    print (" ")
+    print(newestdate)
 
 
-def test_find_max_date():
-    find_max_date()
+def test_newest_date():
+    find_max_date("C:\DiskTemp\Innspill\Innspill.gdb\Innspill", "CreationDate")
+
+
+test_find_max_date()
