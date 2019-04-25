@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-import arcpy, datetime
+import arcpy, datetime,
 
 
 def find_newest_date(table, field):
@@ -15,8 +15,6 @@ def find_newest_date(table, field):
     print(newestdate)
 
 
-def test_newest_date():
-    find_max_date("C:\DiskTemp\Innspill\Innspill.gdb\Innspill", "CreationDate")
 
 
-test_find_max_date()
+
