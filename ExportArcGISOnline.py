@@ -53,7 +53,7 @@ for layer in mapObject.layers:
         except:
             pass
 
-
+# Litt
 
     # ItemID = 'd2b98af66a5b4433ae3ed34bdeb323b2'
 # dataItem = gis.content.get(ItemID)

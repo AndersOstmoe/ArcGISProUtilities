@@ -1,6 +1,8 @@
 # -*- coding: UTF-8 -*-
-import arcpy, datetime,
+import arcpy, datetime
 
+Table = arcpy.GetParameterAsText(0)
+Field = arcpy.GetParameterAsText(1)
 
 def find_newest_date(table, field):
     newestdate = datetime.datetime(2017, 1, 1)
@@ -13,8 +15,11 @@ def find_newest_date(table, field):
 
     print (" ")
     print(newestdate)
+    return newestdate
 
 
+Newest_date = find_newest_date(Table, Field)
 
+arcpy.SetParameterAsText(2, Newest_date)
 
 
