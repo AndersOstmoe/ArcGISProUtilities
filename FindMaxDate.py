@@ -8,9 +8,10 @@ def find_newest_date(table, field):
     with arcpy.da.SearchCursor(table, field) as cursor:
         for row in cursor:
             date = row[0]
-            if date > newest_date:
-                newest_date = date
-            print(date)
+            if date is not None:
+                if date > newest_date:
+                    newest_date = date
+                print(date)
 
     return newest_date
 
