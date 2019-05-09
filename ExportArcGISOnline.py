@@ -25,7 +25,6 @@ from arcgis.mapping import WebMap
 
 gis = GIS(username="agostmoe",password="1Fairlane1")
 
-
 # Finn kartet
 mapItemID = '7d48a11ae8f943ed96338ba9b904cda8'
 mapItem = gis.content.get(mapItemID)
@@ -33,25 +32,29 @@ mapObject = WebMap(mapItem)
 
 for layer in mapObject.layers:
     print(layer.title)
-    if (layer.layerType == "ArcGISFeatureLayer"):
-        try:
-            layerItem = gis.content.get(layer.itemId)
-            tagFound = False
-            for tag in layerItem.tags:
-                if (tag == "E18DGEksport"):
-                    tagFound = True
-                    break
-                print(tag)
-            if (tagFound):
-                nedlastingsnavn = layerItem.name
-                print("Eksporterer " + nedlastingsnavn)
-                exportItem = layerItem.export(nedlastingsnavn, "Shapefile")
-                print("Laster ned")
-                print(exportItem.download(save_path="C:\DiskTemp"))
-                print("Sletter")
-                print(exportItem.delete())
-        except:
-            pass
+    if layer.title[:3].upper() != "VEG":
+        if (layer.layerType == "ArcGISFeatureLayer"):
+            try:
+                layerItem = gis.content.get(layer.itemId)
+                tagFound = False
+                for tag in layerItem.tags:
+                    if (tag == "E18DGEksport"):
+                        tagFound = True
+                        break
+                    print("Tag funnet:" + tag)
+                if (tagFound):
+                    # nedlastingsnavn = layerItem.name
+                    nedlastingsnavn = layer.title
+                    print("Eksporterer " + nedlastingsnavn)
+                    exportItem = layerItem.export(nedlastingsnavn, "Shapefile")
+                    print("Laster ned")
+                    print(exportItem.download(save_path="C:/DiskTemp/TestExport"))
+                    print("Sletter")
+                    print(exportItem.delete())
+            except:
+                pass
+    else:
+        print("Hopper over....")
 
 # Litt
 
