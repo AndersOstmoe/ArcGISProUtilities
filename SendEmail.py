@@ -15,21 +15,19 @@ def is_editable(lyr):
     else:
         return False
 
-def create_msg(innspill):
+def create_msg(navn):
     return f"""\
 Subject: Bekreftelse mottatt innspill
 
-TEST TEST TEST
-Dette er en test av sending av epostadresser lista i AGOL featurelayer. 
-Dersom du mottar en ny epost om kort tid (etter denne), betyr det at noko er feil.
-Æ, Ø og Å bør også vises korrekt. 
+Til {navn}
 
-Vi bekrefter å ha mottatt ditt fiktive innspill:
-{innspill}
+Innspillet er mottatt.
 
-svar gjerne til: torbjorn.boe@asplanviak.no
+Denne e-posten kan ikke besvares. Videre kommunikasjon angående prosjektet
+kan gjøres via de kanalene som er oppgitt på Nye Veier sine sider.
 
-With love from Python
+Vennlig hilsen
+Prosjektgruppa for ny E18 Dørdal - Grimstad
 """.encode('latin-1')
 
 
@@ -42,7 +40,7 @@ adm_table = Table('https://services.arcgis.com/whQdER0woF1J7Iqk/arcgis/rest/serv
 
 epost = 'Epost'
 OBJECTID = 'OBJECTID'
-Innspill = 'Tilbakemelding'  # innspillstekst
+Navn = 'Navn'  # innspillstekst
 innspill_id = 'innspill_id'  # kolonne i adm tabell
 
 all_features = Innspill_feature_layer.query()
@@ -55,18 +53,18 @@ if not is_editable(adm_table):
     print(f'{adm_table} not editable')
     raise ValueError
 
-gmail = Av_gmail('E18DGAV@gmail.com', "TilGrimstadPaa123")
+gmail = Av_gmail('e18dgav@gmail.com', "TilGrimstadPaa123")
 
-epost_objectid = innspill_pandas_dataframe[[epost, OBJECTID, Innspill]][innspill_pandas_dataframe[epost].notna()]  # utvalg av innspill med epostadresse
+epost_objectid = innspill_pandas_dataframe[[epost, OBJECTID, Navn]][innspill_pandas_dataframe[epost].notna()]  # utvalg av innspill med epostadresse
 receivers = list(epost_objectid['Epost'])  # liste epost adr
 objids = list(epost_objectid['OBJECTID'])  # liste objid
-innspill_tekst = list(epost_objectid['Tilbakemelding'])  # liste innspillstekst
+navn_liste = list(epost_objectid['Navn'])  # liste innspillstekst
 allready_sendt = list(adm_pandas_dataframe['innspill_id'])  # get list of innspillsid that has recieved email
 
-for receiver,objid,innspill in zip(receivers, objids, innspill_tekst):
+for receiver, objid, navn in zip(receivers, objids, navn_liste):
     if objid not in allready_sendt:  # If email has not been sendt previously
         try:
-            gmail.sendmails(receivers= receiver, message = create_msg(innspill))
+            gmail.sendmails(receivers= receiver, message = create_msg(navn))
             adm_table.edit_features(adds=[{"attributes":{"innspill_id": objid,"sendt":"ja"}}])  # add objid to innspill_id col.
             print (f'email sendt to {receiver}')
         except smtplib.SMTPRecipientsRefused:

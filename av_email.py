@@ -10,6 +10,7 @@ class Av_gmail():
 
     def __init__(self, sender, password):
         smtp_server = 'smtp.gmail.com'
+        # smtp_server = 'smtp.asplanviak.no'
         port = 465
         context = ssl.create_default_context()
         self.sender = sender
