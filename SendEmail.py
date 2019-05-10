@@ -35,8 +35,8 @@ brukernavn = "agostmoe"
 Onlinepwd = "1Fairlane1"
 gis = GIS("https://www.arcgis.com/home/signin.html", brukernavn, Onlinepwd)
 
-Innspill_feature_layer = FeatureLayer('https://services.arcgis.com/whQdER0woF1J7Iqk/arcgis/rest/services/Innspillstest_E18DG/FeatureServer/0', gis)
-adm_table = Table('https://services.arcgis.com/whQdER0woF1J7Iqk/arcgis/rest/services/epost_sendt_GDB/FeatureServer/0', gis)
+Innspill_feature_layer = FeatureLayer('https://services.arcgis.com/whQdER0woF1J7Iqk/arcgis/rest/services/E18DG_TilbakemeldingerEksternt_Ver3_20190404/FeatureServer/0', gis)
+adm_table = Table('https://services.arcgis.com/whQdER0woF1J7Iqk/arcgis/rest/services/E18DG_epost_sendt_runtime/FeatureServer/0', gis)
 
 epost = 'Epost'
 OBJECTID = 'OBJECTID'
