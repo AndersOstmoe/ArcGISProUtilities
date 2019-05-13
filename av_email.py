@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 import  ssl, smtplib
 
 class Av_gmail():

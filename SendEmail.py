@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 import sys
 sys.path.append(r'C:\Users\torbjorn.boe\Google Drive\Python\AV_agol')
 from av_email import Av_gmail
@@ -24,7 +25,7 @@ Til {navn}
 Innspillet er mottatt.
 
 Denne e-posten kan ikke besvares. Videre kommunikasjon angående prosjektet
-kan gjøres via de kanalene som er oppgitt på Nye Veier sine sider.
+kan gjøres via de kanalene som er oppgitt på medvirkningsportalen.
 
 Vennlig hilsen
 Prosjektgruppa for ny E18 Dørdal - Grimstad
