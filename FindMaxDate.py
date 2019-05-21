@@ -15,12 +15,12 @@ def find_newest_date(table, field):
 
     return newest_date
 
-
-InputTable = arcpy.GetParameterAsText(0)
-InputField = arcpy.GetParameterAsText(1)
-
-Newest_date = find_newest_date(InputTable, InputField)
-
-arcpy.SetParameterAsText(2, Newest_date)
+#
+# InputTable = arcpy.GetParameterAsText(0)
+# InputField = arcpy.GetParameterAsText(1)
+#
+# Newest_date = find_newest_date(InputTable, InputField)
+#
+# arcpy.SetParameterAsText(2, Newest_date)
 
 

@@ -68,7 +68,7 @@ def oppdaterdata(input_feature_layer, featurelayer):
 
 
 print("Oppretter database")
-AdHoc_database = create_adhoc_file_geodatabase(r"C:\Users\anders.ostmoe\OneDrive - Asplan Viak\Prosjekter\616937 Dordal Grimstad\Innspillsoverforing", "TempInnspill")
+AdHoc_database = create_adhoc_file_geodatabase(r"C:\Users\ander\OneDrive - Asplan Viak\Prosjekter\616937 Dordal Grimstad\Innspillsoverforing", "TempInnspill")
 
 print("Henter ut informasjon")
 arcpy.FeatureClassToFeatureClass_conversion("https://services.arcgis.com/whQdER0woF1J7Iqk/arcgis/rest/services/TilbakemeldingerEksterntVer3_Redigering/FeatureServer/0",
