@@ -69,4 +69,6 @@ for receiver, objid, navn in zip(receivers, objids, navn_liste):
             adm_table.edit_features(adds=[{"attributes":{"innspill_id": objid,"sendt":"ja"}}])  # add objid to innspill_id col.
             print (f'email sendt to {receiver}')
         except smtplib.SMTPRecipientsRefused:
-            print(f'could not send to {receiver}')
+            print(f'Ikke akseptert adresse {receiver}')
+        except UnicodeEncodeError:
+            print(f'Kunne ikke enkode {receiver}')
