@@ -28,7 +28,7 @@ Denne e-posten kan ikke besvares. Videre kommunikasjon angående prosjektet
 kan gjøres via de kanalene som er oppgitt på medvirkningsportalen.
 
 Vennlig hilsen
-Prosjektgruppa for ny E18 Dørdal - Grimstad
+Prosjektgruppa for ny E6 Moelv-Storhove
 """.encode('latin-1')
 
 
@@ -36,8 +36,8 @@ brukernavn = "agostmoe"
 Onlinepwd = "1Fairlane1"
 gis = GIS("https://www.arcgis.com/home/signin.html", brukernavn, Onlinepwd)
 
-Innspill_feature_layer = FeatureLayer('https://services.arcgis.com/whQdER0woF1J7Iqk/arcgis/rest/services/E18DG_TilbakemeldingerEksternt_Ver3_20190404/FeatureServer/0', gis)
-adm_table = Table('https://services.arcgis.com/whQdER0woF1J7Iqk/arcgis/rest/services/E18DG_epost_sendt_runtime/FeatureServer/0', gis)
+Innspill_feature_layer = FeatureLayer('https://services.arcgis.com/whQdER0woF1J7Iqk/arcgis/rest/services/TilbakemeldingerEksterntOriginal_E6_1/FeatureServer/0', gis)
+adm_table = Table('https://services.arcgis.com/whQdER0woF1J7Iqk/arcgis/rest/services/E6Innlandet_epost_sendt_runtime/FeatureServer/0', gis)
 
 epost = 'Epost'
 OBJECTID = 'OBJECTID'
@@ -54,7 +54,7 @@ if not is_editable(adm_table):
     print(f'{adm_table} not editable')
     raise ValueError
 
-gmail = Av_gmail('e18dgav@gmail.com', "TilGrimstadPaa123")
+gmail = Av_gmail('e6innlandetsvar@gmail.com', "1Fairlane1")
 
 epost_objectid = innspill_pandas_dataframe[[epost, OBJECTID, Navn]][innspill_pandas_dataframe[epost].notna()]  # utvalg av innspill med epostadresse
 receivers = list(epost_objectid['Epost'])  # liste epost adr
