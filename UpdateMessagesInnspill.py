@@ -68,14 +68,14 @@ def oppdaterdata(input_feature_layer, featurelayer):
 
 
 print("Oppretter database")
-AdHoc_database = create_adhoc_file_geodatabase(r"C:\Users\anders.ostmoe\OneDrive - Asplan Viak\Prosjekter\616937 Dordal Grimstad\Innspillsoverforing", "TempInnspill")
+AdHoc_database = create_adhoc_file_geodatabase(r"C:\DiskTemp\E6Innlandet", "TempInnspill")
 
 print("Henter ut informasjon")
-arcpy.FeatureClassToFeatureClass_conversion("https://services.arcgis.com/whQdER0woF1J7Iqk/arcgis/rest/services/TilbakemeldingerEksterntVer3_Redigering/FeatureServer/0",
+arcpy.FeatureClassToFeatureClass_conversion("https://services.arcgis.com/whQdER0woF1J7Iqk/arcgis/rest/services/TilbakemeldingerEksterntRedigering_E6_1/FeatureServer/0",
                                             AdHoc_database,
                                             "InnspillRedigert")
 
-arcpy.FeatureClassToFeatureClass_conversion("https://services.arcgis.com/whQdER0woF1J7Iqk/arcgis/rest/services/E18DG_TilbakemeldingerEksternt_Ver3_20190404/FeatureServer/0",
+arcpy.FeatureClassToFeatureClass_conversion("https://services.arcgis.com/whQdER0woF1J7Iqk/arcgis/rest/services/TilbakemeldingerEksterntOriginal_E6_1/FeatureServer/0",
                                             AdHoc_database,
                                             "Innspill")
 
@@ -107,4 +107,4 @@ arcpy.CalculateField_management(os.path.join(AdHoc_database, "InnspillUtvalgt"),
 
 
 print("Oppdaterer Online")
-oppdaterdata(os.path.join(AdHoc_database, "InnspillUtvalgt"), "https://services.arcgis.com/whQdER0woF1J7Iqk/arcgis/rest/services/TilbakemeldingerEksterntVer3_Redigering/FeatureServer/0" )
+oppdaterdata(os.path.join(AdHoc_database, "InnspillUtvalgt"), "https://services.arcgis.com/whQdER0woF1J7Iqk/arcgis/rest/services/TilbakemeldingerEksterntRedigering_E6_1/FeatureServer/0" )

@@ -1,6 +1,16 @@
 # -*- coding: UTF-8 -*-
 import sys
-sys.path.append(r'C:\Users\torbjorn.boe\Google Drive\Python\AV_agol')
+sys.path.append(r'C:\Program Files\ArcGIS\Pro\Resources\ArcPy\arcpy')
+sys.path.append(r'C:\Program Files\ArcGIS\Pro\Resources\ArcPy\arcpy\arcpy')
+sys.path.append(r'C:\Program Files\ArcGIS\Pro\bin\Python\envs\arcgispro-py3\DLLs')
+sys.path.append(r'C:\Program Files\ArcGIS\Pro\bin\Python\envs\arcgispro-py3\lib')
+sys.path.append(r'C:\Program Files\ArcGIS\Pro\bin\Python\envs\arcgispro-py3')
+sys.path.append(r'C:\Program Files\ArcGIS\Pro\bin\Python\envs\arcgispro-py3\lib\site-packages')
+sys.path.append(r'C:\Program Files\ArcGIS\Pro\bin')
+
+import logging
+
+
 from av_email import Av_gmail
 
 from arcgis.gis import GIS
@@ -17,7 +27,7 @@ def is_editable(lyr):
         return False
 
 def create_msg(navn):
-    return f"""\
+    the_message = f"""\
 Subject: Bekreftelse mottatt innspill
 
 Til {navn}
@@ -28,9 +38,26 @@ Denne e-posten kan ikke besvares. Videre kommunikasjon angående prosjektet
 kan gjøres via de kanalene som er oppgitt på medvirkningsportalen.
 
 Vennlig hilsen
-Prosjektgruppa for ny E6 Moelv-Storhove
-""".encode('latin-1')
+Prosjektgruppa for ny E6 Moelv-Storhove"""
 
+    # the_message = "Subject: Bekreftelse mottatt innspill \n" + \
+    #     "\n" + \
+    #     "Til " + navn + "\n" +\
+    #     "\n" + \
+    #     "Innspillet er mottatt. \n" + \
+    #     "\n" + \
+    #     "Denne e-posten kan ikke besvares. Videre kommunikasjon angående prosjektet\n" + \
+    #     "kan gjøres via de kanalene som er oppgitt på medvirkningsportalen.\n" + \
+    #     "\n" + \
+    #     "\n" + \
+    #     "Vennlig hilsen\n" + \
+    #     "Prosjektgruppa for ny E6 Moelv-Storhove"
+
+    return the_message.encode('latin-1')
+
+
+logging.basicConfig(filename="C:/DiskTemp/E6Innlandet/Email.log", level=logging.INFO, format='%(asctime)-15s %(message)s')
+logging.info("Sjekker tabellen for nye innspill.")
 
 brukernavn = "agostmoe"
 Onlinepwd = "1Fairlane1"
@@ -51,7 +78,7 @@ innspill_pandas_dataframe = all_features.sdf
 adm_pandas_dataframe = all_adm_table.sdf
 
 if not is_editable(adm_table):
-    print(f'{adm_table} not editable')
+    print(str(adm_table) + "not editable")
     raise ValueError
 
 gmail = Av_gmail('e6innlandetsvar@gmail.com', "1Fairlane1")
@@ -67,8 +94,11 @@ for receiver, objid, navn in zip(receivers, objids, navn_liste):
         try:
             gmail.sendmails(receivers= receiver, message = create_msg(navn))
             adm_table.edit_features(adds=[{"attributes":{"innspill_id": objid,"sendt":"ja"}}])  # add objid to innspill_id col.
-            print (f'email sendt to {receiver}')
+            print ("email sendt til " + receiver)
+            logging.info("email sendt til " + receiver)
         except smtplib.SMTPRecipientsRefused:
-            print(f'Ikke akseptert adresse {receiver}')
+            print("Ikke akseptert adresse " + receiver)
+            logging.info("Ikke akseptert adresse " + receiver)
         except UnicodeEncodeError:
-            print(f'Kunne ikke enkode {receiver}')
+            print("Kunne ikke enkode " + receiver)
+            logging.info("Kunne ikke enkode " + receiver)
